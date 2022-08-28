@@ -14,6 +14,10 @@ class Equasion:
         self.find_vars()
 
     def find_terms(self):
+        """
+        splits the equation into different terms
+        different parts of the terms are put into another list when a '=' is reached
+        """
         previous_i = 0
         for i, char in enumerate(self.eq):
             if char in ['/', '*', '-', '+', '^']:
