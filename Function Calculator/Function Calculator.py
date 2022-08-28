@@ -21,15 +21,20 @@ class Equasion:
                 previous_i = i
             elif char in ['(', '[', '{']:
                 self.terms[-1].append(self.eq[previous_i:i])
-                self.terms[-1].append(self.eq[i:self.find_corrisponding(i)])
-                previous_i = self.find_corrisponding(i)
+                self.terms[-1].append(self.eq[i:self.find_corr(i)])
+                previous_i = self.find_corr(i)
             if char == '=':
                 self.terms[-1].append(self.eq[previous_i:i])
                 previous_i = i+1
                 self.terms.append([])
         self.terms[-1].append(self.eq[previous_i:i+1])
 
-    def find_corrisponding(self, i):
+    def find_corr(self, i):
+        """
+        finds the corisponding bracket at the start index
+        :param i: the starting index which this function will start checking self.eq on
+        :return: the index that the corrisponding bracket has
+        """
         corisponding = {'(': ')', '[': ']', '{': '}'}
         amount = 1
         while amount > 0 or i != len(self.eq):
@@ -41,15 +46,26 @@ class Equasion:
         return i
 
     def find_vars(self):
+        """
+        find the variables in the eq
+        """
         for char in self.eq:
             if char.isalpha():
                 self.vars.append(char)
 
     def POEs(self):
-        pass
+        corr = {
+            '+': '-', 
+            '-': '+',
+            '*': '/',
+            '/': '*'
+        }
 
 
 def read_file():
+    """
+    reads a file and that file is the input
+    """
     with open('Equasions.txt') as f:
         file = f.read()
     equations = []
